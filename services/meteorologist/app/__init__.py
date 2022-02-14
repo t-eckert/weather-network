@@ -1,4 +1,3 @@
-from urllib import response
 from dotenv import load_dotenv
 from flask import Flask
 from os import environ
@@ -7,6 +6,7 @@ import httpx
 
 load_dotenv()
 weather_api_key = environ["OPEN_WEATHER_API_KEY"]
+location_override = environ.get("LOCATION_OVERRIDE")
 
 app = Flask(__name__)
 
@@ -32,6 +32,6 @@ def fetch_weather(location: str) -> dict | None:
 
 @app.route("/")
 def index() -> dict | None:
-    location = fetch_location()
+    location = location_override or fetch_location()
     weather = fetch_weather(location)
     return weather
