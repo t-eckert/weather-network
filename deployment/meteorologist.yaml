@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meteorologist
+  labels:
+    app: meteorologist
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: meteorologist
+  template:
+    metadata:
+      labels:
+        app: meteorologist
+    spec:
+      containers:
+        - name: meteorologist
+          image: tecke/weather-network-meteorologist:latest
+          ports:
+            - containerPort: 8000
